@@ -4,7 +4,7 @@
 
 **Private credit research for agents.** Ask which lenders finance a company, which BDCs hold a borrower's loans and when they mature, which sponsors a lender backs, and which institutions allocate to private credit. Every answer is built only from cited claims read from primary documents (BDC schedules of investments filed with the SEC, Form ADV and IAPD, public pension commitment reports), with the source and the observation date on every row.
 
-**DFX Intelligence.** Evidence-backed private capital intelligence platform for AI agents, 134 MCP tools across private credit, BDC portfolios and lenders; private equity firms, funds and deals; venture capital; family offices; RIAs and advisor moves; independent sponsors; allocators and LP commitments; real estate funds; US real estate debt and property records. Facts carry their source and observation date, and every answer states OK, NO_MATCH, NOT_COVERED or UNKNOWN rather than guessing. 129 of 134 tools are free to call with no key; 5 save an account's own research watches and need an account key. Without a DFX plan, list answers name the first rows and count the rest, and contact values are never returned. For agents: [https://dfxintel.com/agents](https://dfxintel.com/agents).
+**DFX Intelligence.** Evidence-backed private capital intelligence platform for AI agents, 135 MCP tools across private credit, BDC portfolios and lenders; private equity firms, funds and deals; venture capital; family offices; RIAs and advisor moves; independent sponsors; allocators and LP commitments; real estate funds; US real estate debt and property records. Facts carry their source and observation date, and every answer states OK, NO_MATCH, NOT_COVERED or UNKNOWN rather than guessing. 130 of 135 tools are free to call with no key; 5 save an account's own research watches and need an account key. Without a DFX plan, list answers name the first rows and count the rest, and contact values are never returned. For agents: [https://dfxintel.com/agents](https://dfxintel.com/agents).
 
 ## Connect
 
@@ -16,10 +16,10 @@
 **Registry:** `io.github.Capital-W-Holdings/us-property-parcel-real-estate-debt`
 
 The core profile leads with `research`: one question, answered in one call, with the reads it composes.
-The full profile lists every read tool and does not list `research`. Members sign in at the member URL (it is never tagged,
+The full profile lists `research` first too, then every read tool. Members sign in at the member URL (it is never tagged,
 because the OAuth resource must match exactly), or send `Authorization: Bearer dfx_live_...` on either anonymous URL.
 
-129 of 134 tools are free with no key, no sign-up and no OAuth. The other 5 (`watch_cancel`, `watch_changes`, `watch_create`, `watch_list` and `watch_reevaluate`) save an account's own research watches and need an account key. A list answer to an anonymous caller names its first 5 rows and counts the rest, and says what it withheld. Contact values are never returned.
+130 of 135 tools are free with no key, no sign-up and no OAuth. The other 5 (`watch_cancel`, `watch_changes`, `watch_create`, `watch_list` and `watch_reevaluate`) save an account's own research watches and need an account key. A list answer to an anonymous caller names its first 5 rows and counts the rest, and says what it withheld. Contact values are never returned.
 
 ```bash
 claude mcp add --transport http dfx 'https://exchange-production-9123.up.railway.app/mcp/core?c=gh-repo'
@@ -109,10 +109,11 @@ not have to guess and does not have to be told:
 
 ---
 
-## The 134 tools
+## The 135 tools
 
 | Tool | Takes | Returns | Price |
 |---|---|---|---|
+| `research` | as_of?, continue?, depth?, detail?, entity?, question?, ... | One private-markets question in one call: resolved entities, a direct answer built only from cited claims, facts, relationships, dated events, coverage limits a... | free |
 | `resolve_address` | address, city?, state? | canonical DFX ids with the match basis and any ambiguity | free |
 | `resolve_organization` | name | entity ids for owners, managers, lenders, servicers | free |
 | `get_occupancy` | a property or company id, or a company name with an address | who is observed to occupy a building, or where a company operates, with the evidence tier | free |
@@ -137,7 +138,7 @@ not have to guess and does not have to be told:
 | `search_pending_ownership_changes` | changed_since?, limit?, query?, state?, tag?, view? | OFFICIAL state records that a skilled nursing facility's ownership, control or operator is changing, before the change takes effect (Kentucky, New York, Rhode I... | free |
 | `search_vc_firms` | active_only?, city?, emerging_manager?, limit?, min_investments?, query?, ... | Venture firms as compact cards: stated sectors, stages, geography and check size beside OBSERVED behaviour (investments in the last 6 and 12 months, lead count,... | free |
 | `get_vc_firm` | dfx_id | The full card for any entity on the venture graph: a firm (with recent investments, co-investors and funds), a person (with attributed investments and board sea... | free |
-| `search_vc_investments` | company_dfx_id?, investor_dfx_id?, lead_only?, limit?, partner_dfx_id?, query?, ... | Investor-by-investor participations in rounds: investor, company, fund, the partner attributed (with attribution level), role (lead or participant), new or foll... | free |
+| `search_vc_investments` | alongside_investor_dfx_id?, company_dfx_id?, investor_dfx_id?, investor_type?, lead_only?, limit?, ... | Investor-by-investor participations in rounds: investor, company, fund, the partner attributed (with attribution level), role (lead or participant), new or foll... | free |
 | `search_vc_funds` | fundraising_state?, lifecycle_state?, limit?, max_vintage?, min_form_d_sold_usd?, min_vintage?, ... | Funds with every amount under its own name (target, first close, final close, announced size, Form D offering and sold, ADV gross asset value), vintage and basi... | free |
 | `search_pe_firms` | class?, class_state?, cursor?, limit?, min_transactions_36m?, query?, ... | Private equity firms (management companies and advisers) as compact cards: the classifier's class with its state, confidence and basis; size band with the evide... | free |
 | `get_pe_firm` | dfx_id | The full card for a private equity firm: identity (website, HQ, ADV filing dates), classification with basis and the size band's definition and evidence, classi... | free |
@@ -258,11 +259,11 @@ shape what gets built next.
 
 The same connection answers across three more DFX graphs, with one id scheme (`dfx:fo:`, `dfx:isi:`, `dfx:vc:`, and the real estate ids above), one response contract, and cross-graph identity by shared CRD, CIK or EIN only. A same-name entity on another graph is returned as a candidate, never merged.
 
-**Family offices.** 2,572 offices on the graph (667 candidates, 161 confirmed multi-family, 338 probable single-family, 140 outsourced), 4,238 foundations, 748 offices with 13F positions, 411 with observed direct investments. A candidate is a name, never a class; AUM, RAUM and 13F value are three numbers and are never substituted for one another.
+**Family offices.** 2,573 offices on the graph (667 candidates, 161 confirmed multi-family, 339 probable single-family, 140 outsourced), 4,238 foundations, 748 offices with 13F positions, 411 with observed direct investments. A candidate is a name, never a class; AUM, RAUM and 13F value are three numbers and are never substituted for one another.
 
 **Independent sponsors.** 4,206 sponsors, 10,773 capital providers, 97,309 private companies with Department of Labor plan-filing history of which 17,081 carry a transition signal, 317,710 computed company-to-sponsor matches with reasons and blockers, 2,476 announced transactions. A plan-filing signal is one year lagged.
 
-**Venture capital.** None firms (None with a fund raising in the last 18 months), 78,157 funds with every fund amount kept apart (55,343 with Form D sold), 362,124 people, 155,551 companies and 163,533 rounds. Stated sectors are populated on None firms today, so a sector filter on firms answers NOT_COVERED rather than an empty list; a round is never a check.
+**Venture capital.** 78,157 funds with every fund amount kept apart (55,343 with Form D sold), 362,647 people, 156,203 companies and 163,534 rounds. A round is never a check.
 
 **Across all of them:** `search_entities`, `get_entity` (everything on one id: card, relationships, events, evidence, cross-graph links), `search_people`, `search_relationships`, `relationship_path` (how X connects to Y, every hop an evidenced edge), `search_events`, `verify` (SUPPORTED, PARTIALLY_SUPPORTED, CONTRADICTED or UNKNOWN, with the observations), and the economic tools `find_capital_for_opportunity`, `find_opportunities_for_capital`, `explain_match` (reasons and blockers, never a bare score), `why_now` and `who_should_care`.
 
