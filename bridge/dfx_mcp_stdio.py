@@ -36,7 +36,7 @@ import urllib.error
 import urllib.request
 
 ENDPOINT = os.environ.get("DFX_MCP_URL",
-                          "https://exchange-production-9123.up.railway.app/mcp")
+                          "https://exchange-production-9123.up.railway.app/mcp?c=gh-repo")
 # Long enough for the widest question this server answers. Measured against production:
 # an unfiltered search over the whole tape is the slowest call on the surface at roughly
 # two seconds, and every other shape is well under one. Sixty is not a performance

@@ -27,7 +27,7 @@ USER dfx
 
 # The endpoint is overridable so a caller can point the bridge at a staging exchange
 # without rebuilding. It defaults to production inside the script.
-# ENV DFX_MCP_URL=https://exchange-production-9123.up.railway.app/mcp
+# ENV DFX_MCP_URL="https://exchange-production-9123.up.railway.app/mcp?c=gh-repo"
 
 # stdio, so no port is exposed and no healthcheck applies: the client IS the health
 # check. It launches this, writes an `initialize`, and the answer comes back or does not.

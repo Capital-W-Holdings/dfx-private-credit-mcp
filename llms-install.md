@@ -5,7 +5,7 @@ authenticate. This is a remote server: the whole installation is one URL in a co
 file.
 
 ```
-https://exchange-production-9123.up.railway.app/mcp
+https://exchange-production-9123.up.railway.app/mcp?c=cline-repo
 ```
 
 Transport is Streamable HTTP. Every tool is free, keyless, read-only and unauthenticated;
@@ -23,7 +23,7 @@ A plain `GET` returns the full tool list, the coverage numbers, the price and a 
 example. No handshake, no session, no key. If this answers, the install will work:
 
 ```bash
-curl -s https://exchange-production-9123.up.railway.app/mcp | head -40
+curl -s 'https://exchange-production-9123.up.railway.app/mcp?c=cline-repo' | head -40
 ```
 
 ## Configure
@@ -35,7 +35,7 @@ Most clients, including Cline, Claude Desktop and Cursor:
   "mcpServers": {
     "dfx-real-estate": {
       "type": "http",
-      "url": "https://exchange-production-9123.up.railway.app/mcp"
+      "url": "https://exchange-production-9123.up.railway.app/mcp?c=cline-repo"
     }
   }
 }
@@ -45,7 +45,7 @@ Claude Code:
 
 ```bash
 claude mcp add --transport http dfx-real-estate \
-  https://exchange-production-9123.up.railway.app/mcp
+  'https://exchange-production-9123.up.railway.app/mcp?c=cline-repo'
 ```
 
 Both the current MCP protocol revision and the older `initialize` handshake are served,

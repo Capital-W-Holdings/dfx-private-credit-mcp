@@ -2,13 +2,49 @@
 
 [![DFX Intelligence MCP server: quality and maintenance score on Glama](https://glama.ai/mcp/servers/Capital-W-Holdings/us-property-parcel-real-estate-debt/badges/score.svg)](https://glama.ai/mcp/servers/Capital-W-Holdings/us-property-parcel-real-estate-debt)
 
-**One connection, four domains.** Real estate is the first and deepest; the same server also answers across family offices, independent sponsors and their capital providers, private companies with a transition coming, and venture capital, with cross-domain identity, relationships, events, matching and verification. See [Beyond real estate](#beyond-real-estate-family-offices-independent-sponsors-venture-capital).
+**Private credit research for agents.** Ask which lenders finance a company, which BDCs hold a borrower's loans and when they mature, which sponsors a lender backs, and which institutions allocate to private credit. Every answer is built only from cited claims read from primary documents (BDC schedules of investments filed with the SEC, Form ADV and IAPD, public pension commitment reports), with the source and the observation date on every row.
+
+**DFX Intelligence.** Evidence-backed private capital intelligence platform for AI agents, 134 MCP tools across private credit, BDC portfolios and lenders; private equity firms, funds and deals; venture capital; family offices; RIAs and advisor moves; independent sponsors; allocators and LP commitments; real estate funds; US real estate debt and property records. Facts carry their source and observation date, and every answer states OK, NO_MATCH, NOT_COVERED or UNKNOWN rather than guessing. 129 of 134 tools are free to call with no key; 5 save an account's own research watches and need an account key. Without a DFX plan, list answers name the first rows and count the rest, and contact values are never returned. For agents: [https://dfxintel.com/agents](https://dfxintel.com/agents).
+
+## Connect
+
+**Endpoint (start here, anonymous):** `https://exchange-production-9123.up.railway.app/mcp/core?c=gh-repo`
+**Member sign-in (OAuth 2.1):** `https://exchange-production-9123.up.railway.app/mcp/core/member`
+**Full profile:** `https://exchange-production-9123.up.railway.app/mcp?c=gh-repo`
+**Transport:** Streamable HTTP
+**Auth:** none for anonymous reads; OAuth 2.1 sign-in on dfxintel.com or a `dfx_live_` account key for members
+**Registry:** `io.github.Capital-W-Holdings/us-property-parcel-real-estate-debt`
+
+The core profile leads with `research`: one question, answered in one call, with the reads it composes.
+The full profile lists every read tool and does not list `research`. Members sign in at the member URL (it is never tagged,
+because the OAuth resource must match exactly), or send `Authorization: Bearer dfx_live_...` on either anonymous URL.
+
+129 of 134 tools are free with no key, no sign-up and no OAuth. The other 5 (`watch_cancel`, `watch_changes`, `watch_create`, `watch_list` and `watch_reevaluate`) save an account's own research watches and need an account key. A list answer to an anonymous caller names its first 5 rows and counts the rest, and says what it withheld. Contact values are never returned.
+
+```bash
+claude mcp add --transport http dfx 'https://exchange-production-9123.up.railway.app/mcp/core?c=gh-repo'
+```
+
+Example call on the core profile:
+
+```json
+{"name": "research", "arguments": {"question": "Which BDCs hold the loans of Hyland Software and when do they mature?"}}
+```
+
+> Every number on this page is measured against production, not typed. Last measured
+> **2026-10-22**. Call `dfx_coverage` for the same grid at the moment you read it.
+
+---
+
+## Beyond private credit: US real estate debt and property records
+
+The other graphs (family offices, independent sponsors, venture capital) follow in [Beyond real estate](#beyond-real-estate-family-offices-independent-sponsors-venture-capital).
 
 The real estate domain answers dated questions about two things: **United States commercial and
 federal-programme real estate debt**, where loan maturities are published across
 52 state codes, compliance expiries across 56 and subsidy expiries across
-54, and **property records**, where 292,039 Massachusetts and New York parcels carry
-ownership and assessed value and 95,562 recorded sale instruments cover the District of Columbia, Massachusetts and New York.
+54, and **property records**, where 2,473,150 New York, Ohio, Washington, Massachusetts and Illinois parcels carry
+ownership and assessed value and 95,616 recorded sale instruments cover the District of Columbia, Massachusetts, New York and Wisconsin.
 Call it when an agent needs to know who owns a specific building, what it last sold
 for, or which loans and subsidies come due in a given state and time window, with the
 source and the observation date attached to every claim.
@@ -26,35 +62,25 @@ The measured per-type, per-state numbers are in
 [Event coverage, measured](#event-coverage-measured) below, and `dfx_coverage` returns
 the same grid at call time so an agent never has to guess from an empty result.
 
-**Endpoint:** `https://exchange-production-9123.up.railway.app/mcp`
-**Transport:** Streamable HTTP
-**Auth:** none
-**Registry:** `io.github.Capital-W-Holdings/us-property-parcel-real-estate-debt`
-
-102 tools, all free, unauthenticated and read-only: no key, no signup, no OAuth.
-
 A tool that answers "no" clearly is worth more to an agent than one that answers an
 empty list, so this server refuses unknown arguments with the served vocabulary
 attached.
-
-> Every number on this page is measured against production, not typed. Last measured
-> **2026-09-30**. Call `dfx_coverage` for the same grid at the moment you read it.
 
 ---
 
 ## Read the schemas before you call anything
 
-A plain `GET` on the endpoint returns the full tool list, the coverage numbers and a
+A plain `GET` on the full profile returns the full tool list, the coverage numbers and a
 worked example. No handshake, no session, no `initialize`.
 
 ```bash
-curl -s https://exchange-production-9123.up.railway.app/mcp
+curl -s 'https://exchange-production-9123.up.railway.app/mcp?c=gh-repo'
 ```
 
-Then call a tool over JSON-RPC:
+Then call a real estate tool over JSON-RPC (the real estate tools are on the full profile):
 
 ```bash
-curl -s https://exchange-production-9123.up.railway.app/mcp \
+curl -s 'https://exchange-production-9123.up.railway.app/mcp?c=gh-repo' \
   -H 'Content-Type: application/json' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":
        {"name":"resolve_address","arguments":
@@ -83,7 +109,7 @@ not have to guess and does not have to be told:
 
 ---
 
-## The 102 tools
+## The 134 tools
 
 | Tool | Takes | Returns | Price |
 |---|---|---|---|
@@ -112,7 +138,7 @@ not have to guess and does not have to be told:
 | `search_vc_firms` | active_only?, city?, emerging_manager?, limit?, min_investments?, query?, ... | Venture firms as compact cards: stated sectors, stages, geography and check size beside OBSERVED behaviour (investments in the last 6 and 12 months, lead count,... | free |
 | `get_vc_firm` | dfx_id | The full card for any entity on the venture graph: a firm (with recent investments, co-investors and funds), a person (with attributed investments and board sea... | free |
 | `search_vc_investments` | company_dfx_id?, investor_dfx_id?, lead_only?, limit?, partner_dfx_id?, query?, ... | Investor-by-investor participations in rounds: investor, company, fund, the partner attributed (with attribution level), role (lead or participant), new or foll... | free |
-| `search_vc_funds` | lifecycle_state?, limit?, max_vintage?, min_form_d_sold_usd?, min_vintage?, organization_dfx_id?, ... | Funds with every amount under its own name (target, first close, final close, announced size, Form D offering and sold, ADV gross asset value), vintage and basi... | free |
+| `search_vc_funds` | fundraising_state?, lifecycle_state?, limit?, max_vintage?, min_form_d_sold_usd?, min_vintage?, ... | Funds with every amount under its own name (target, first close, final close, announced size, Form D offering and sold, ADV gross asset value), vintage and basi... | free |
 | `search_pe_firms` | class?, class_state?, cursor?, limit?, min_transactions_36m?, query?, ... | Private equity firms (management companies and advisers) as compact cards: the classifier's class with its state, confidence and basis; size band with the evide... | free |
 | `get_pe_firm` | dfx_id | The full card for a private equity firm: identity (website, HQ, ADV filing dates), classification with basis and the size band's definition and evidence, classi... | free |
 | `search_pe_funds` | adv_fund_type?, cursor?, lifecycle_state?, limit?, max_vintage?, min_adv_gav_usd?, ... | Funds on the private equity graph with every amount under its own name and beside its basis: target, first close, final close, announced size, Form D offering a... | free |
@@ -141,7 +167,7 @@ not have to guess and does not have to be told:
 | `search_ria_outside_business` | category?, category_group?, current_only?, cursor?, firm_crd?, investment_related?, ... | Outside-business entries from the advisor's own Form U4 disclosure, reviewed extraction: the company, what it does and on what basis, the advisor's role (owner,... | free |
 | `get_ria_outside_business` | company_id?, dfx_id? | With an advisor (dfx:ria: id or individual CRD): every reviewed outside-business entry, the measured dimensions (entrepreneurial, breadth, community, network, r... | free |
 | `search_private_credit` | bdc_advisers_only?, class?, cursor?, entity_type?, held_only?, industry?, ... | The capital structure graph behind private markets, built from every BDC's schedule of investments each quarter since 2022 | free |
-| `get_credit_provider` | dfx_id | A credit manager: its classes with basis, the BDCs it advises (from each BDC's own 10-K) with their latest schedules, its credit funds on Form ADV, its sponsor ... | free |
+| `get_credit_provider` | detail?, dfx_id | A credit manager: its classes with basis, the BDCs it advises (from each BDC's own 10-K) with their latest schedules, its credit funds on Form ADV, its sponsor ... | free |
 | `get_bdc_portfolio` | as_of?, cursor?, dfx_id, include_equity?, limit?, sort? | Every position a BDC tagged at one quarter end (the latest unless as_of is given), each in the filer's own figures: borrower, instrument, kind, lien, principal,... | free |
 | `get_borrower_capital_structure` | dfx_id | The borrower group (its spellings and grade), every facility (kind, lien, principal held across lenders as a lower bound, mark, pricing, PIK, maturity with basi... | free |
 | `get_credit_facility` | dfx_id | A facility (one borrower group in one instrument class): size as the sum of BDC pieces with its basis, pricing modal and ranged across pieces, maturity with bas... | free |
@@ -152,24 +178,27 @@ not have to guess and does not have to be told:
 | `search_allocators` | allocator_class?, consultant_class?, cursor?, entity_type?, include_components?, limit?, ... | The capital-owner graph: public pensions (every Census unit), corporate and Taft-Hartley DB plans (Form 5500), endowments and foundations (IRS), state pools and... | free |
 | `get_allocator` | dfx_id | For an allocator: the card with reported assets and basis, funded status, the latest allocation policy rows (target, range, actual as printed with the subject's... | free |
 | `search_allocator_commitments` | allocator_dfx_id?, bucket?, consultant_dfx_id?, cursor?, first_time_only?, fund_dfx_id?, ... | One row per line of a plan's own disclosure: allocator, fund as printed, manager and fund resolved to the pe / vc graphs where the resolver matched, bucket, the... | free |
-| `search_re_fund_managers` | crd?, cursor?, include_former?, limit?, max_gav_usd?, min_gav_usd?, ... | Advisers that swear a Real Estate Fund vehicle on Form ADV Schedule D 7.B.(1): one manager is one CRD, with its registration and latest filing, regulatory asset... | free |
+| `search_re_fund_managers` | crd?, cursor?, first_vehicle_year_from?, include_former?, invested_state?, latest_vintage_from?, ... | Advisers that swear a Real Estate Fund vehicle on Form ADV Schedule D 7.B.(1): one manager is one CRD, with its registration and latest filing, regulatory asset... | free |
 | `get_re_fund_manager` | dfx_id | The manager card, its ten largest vehicles and the whole family by vintage, validated property bindings with the rule and confidence behind each and the propert... | free |
-| `search_re_fund_vehicles` | cursor?, exclude_feeders?, first_reported_year?, include_dropped?, limit?, manager_crd?, ... | Vehicles sworn as Real Estate Funds by their SEC fund id (805-...): the fund and its family and sequence, master, feeder or fund of funds, gross asset value lat... | free |
+| `search_re_fund_vehicles` | cursor?, exclude_feeders?, first_reported_from?, first_reported_year?, include_dropped?, lifecycle_state?, ... | Vehicles sworn as Real Estate Funds by their SEC fund id (805-...): the fund and its family and sequence, master, feeder or fund of funds, gross asset value lat... | free |
 | `get_re_fund_vehicle` | dfx_id | The vehicle card with its reporting history year by year as filed (gross asset value, owners, minimum investment, the fund type and name as filed that year), it... | free |
 | `get_re_fund_trends` | limit?, min_gav_usd?, view? | Derived series over the sworn tape, each with its population, derivation and caveat printed beside it: vehicles first reported by year (with the managers filing... | free |
-| `get_capital_paths` | dfx_id, kind?, limit? | Published capital flow paths through one institution: which allocators back this manager and through which fund, which lenders finance this sponsor's borrowers ... | free |
+| `search_re_fund_loans` | cursor?, group_by?, instrument_kind?, lender?, limit?, manager_dfx_id?, ... | Loans bound to a real estate fund manager through a validated property binding: lender of record (labelled when it is the CMBS trust holding the note rather tha... | free |
+| `search_re_fund_lenders` | cursor?, lender?, limit?, manager_dfx_id?, min_loans?, property_type?, ... | Manager by lender pairs from the loans at the manager's validated holdings: the lender group, loans, principal, properties, property types and states, first and... | free |
+| `search_re_fund_lps` | allocator?, allocator_dfx_id?, allocator_state?, commitment_type?, cursor?, group_by?, ... | The public LP tape resolved to real estate fund managers and vehicles: the plan (allocator id), the manager and vehicle with the basis of each resolution, the f... | free |
+| `get_capital_paths` | dfx_id, include_former?, kind?, limit? | Published capital flow paths through one institution: which allocators back this manager and through which fund, which lenders finance this sponsor's borrowers ... | free |
 | `get_commitments` | dfx_id, include_holdings?, limit? | The commitment tapes, in one call, for any id they reference: the allocator tape (a public plan's own disclosure, with the plan, the fund as printed, the manage... | free |
-| `get_borrower_facilities` | dfx_id, held_only?, limit? | Every facility a borrower group has on the BDC tape (kind, lien, principal held across lenders as a lower bound, mark on cost, pricing, PIK, maturity with its b... | free |
+| `get_borrower_facilities` | as_of?, detail?, dfx_id, group_by?, held_only?, limit? | Every facility a borrower group has on the BDC tape (kind, lien, principal held across lenders as a lower bound, mark on cost, pricing, PIK, maturity with its b... | free |
 | `get_sponsor_lenders` | dfx_id, limit?, min_borrowers?, sort? | Sponsor by lender pairs counted once per borrower held: borrowers, facilities, principal held, first and latest quarter, new borrowers in the last four quarters... | free |
 | `search_capital_changes` | dfx_id?, event_type?, graph, include_seeded?, limit?, since | The change tape for the three capital graphs by FIRST SIGHT: the day DFX first saw each row, which is the only order a poller can trust | free |
 | `search_entities` | active_only?, asset_class?, city?, cursor?, domain?, entity_type?, ... | One search across family offices, independent sponsors and their capital providers, private companies, venture firms, private equity firms and funds, and real e... | free |
-| `resolve_name` | domain?, entity_type?, limit?, name | Resolve a firm, fund, person or company name to canonical dfx ids from the Data Factory's index of every published name and alias (former names, dbas, legal nam... | free |
-| `get_entity` | dfx_id, event_limit?, evidence_limit?, include?, relationship_limit? | For any DFX id: the full card, published relationships with sources and dates, recent events, evidence rows (the observation each fact traces to), cross-graph s... | free |
+| `resolve_name` | domain?, entity_type?, limit?, name, prefer_domain? | Resolve a firm, fund, person or company name to canonical dfx ids from the Data Factory's index of every published name and alias (former names, dbas, legal nam... | free |
+| `get_entity` | detail?, dfx_id, event_limit?, evidence_limit?, include?, relationship_limit? | For any DFX id: the full card, published relationships with sources and dates, recent events, evidence rows (the observation each fact traces to), cross-graph s... | free |
 | `search_people` | cross_graph_only?, current_only?, domain?, investment_responsibility?, limit?, organization?, ... | Investment professionals, principals and family office staff as names with titles, roles, seniority, investment responsibility, organisation and tenure, from pu... | free |
-| `search_relationships` | current_only?, dfx_id, limit?, rel_type? | Every published relationship touching one entity (EMPLOYS, PRINCIPAL_OF, INVESTED_IN, CO_INVESTED_WITH, MANAGES, OWNS, BOARD_MEMBER_OF, VEHICLE_OF, ...), each w... | free |
+| `search_relationships` | current_only?, detail?, dfx_id, limit?, rel_type? | Every published relationship touching one entity (EMPLOYS, PRINCIPAL_OF, INVESTED_IN, CO_INVESTED_WITH, MANAGES, OWNS, BOARD_MEMBER_OF, VEHICLE_OF, ...), each w... | free |
 | `relationship_path` | from_dfx_id, max_hops?, to_dfx_id | An evidence-backed path between two DFX ids across every graph: each hop is a published relationship with its source, or a SAME_AS identity link by shared CRD/C... | free |
 | `search_events` | dfx_id?, domain?, event_type?, exclude_routine?, limit?, min_significance?, ... | Dated events across family offices, sponsors, venture, private equity and real estate: investments announced, vehicles formed, Form D and ADV filings, people jo... | free |
-| `verify` | claim?, object?, object_dfx_id?, predicate?, subject?, subject_dfx_id?, ... | SUPPORTED, PARTIALLY_SUPPORTED, CONTRADICTED or UNKNOWN for a claim, with the observations | free |
+| `verify` | as_of?, claim?, object?, object_dfx_id?, predicate?, subject?, ... | SUPPORTED, PARTIALLY_SUPPORTED, CONTRADICTED or UNKNOWN for a claim, with the observations | free |
 | `find_capital_for_opportunity` | asset_class?, check_size_usd?, control?, deal_size_usd?, dfx_id?, investor_types?, ... | Investors for a company (dfx_id) or a described opportunity (sector, state, deal size, stage, control): verified independent sponsors with observed acquisitions... | free |
 | `find_opportunities_for_capital` | dfx_id, limit? | For a family office, sponsor, capital provider or venture firm: the opportunities DFX knows that fit its DEMONSTRATED behaviour: computed matches where the grap... | free |
 | `explain_match` | dfx_id_a, dfx_id_b | For an investor and an opportunity (either order): MATCH REASONS, BLOCKERS, SUPPORTING OBSERVATIONS, COMPARABLE HISTORY (the investor's dated investments in the... | free |
@@ -179,8 +208,8 @@ not have to guess and does not have to be told:
 | `find_real_estate_lenders` | band_max_usd?, band_min_usd?, city?, limit?, property_type, since?, ... | Lenders ranked on the commercial real estate loans they ORIGINATED, from CMBS loan-level filings (SEC ABS-EE): same property type, loans in the states and city ... | free |
 | `search_cmbs_loans` | cursor?, distress?, dscr_max?, limit?, loan_keys?, maturity_from?, ... | Loans on the ACTIVE CMBS tape (SEC ABS-EE, each loan's latest monthly reading, read within 100 days of the newest period) with the servicer's own fields: paymen... | free |
 | `search_signals` | affected_dfx_id?, cursor?, domain?, family?, include_audience?, limit?, ... | The governed signal layer the site ranks by (actionable now, public or sellable only): each card names its family, the subject with its dfx id, what changed, wh... | free |
-| `search_opportunities` | condition_kind?, cursor?, family?, intelligence_class?, limit?, min_rank?, ... | Opportunity summaries: the condition (credit deterioration, refinancing window, lender group change, capital raised, advisor movement, servicing distress ...), ... | free |
-| `who_to_contact` | dfx_id?, limit?, opportunity_id?, organization?, purpose? | For one organization (dfx_id, or its name in `organization`, resolved through the identity layer so every graph the institution is on is read) or one opportunit... | free |
+| `search_opportunities` | condition_kind?, cursor?, family?, include_held?, intelligence_class?, limit?, ... | Opportunity summaries: the condition (credit deterioration, refinancing window, lender group change, capital raised, advisor movement, servicing distress ...), ... | free |
+| `who_to_contact` | dfx_id?, limit?, opportunity_id?, organization?, prefer_domain?, purpose? | For one organization (dfx_id, or its name in `organization`, resolved through the identity layer so every graph the institution is on is read) or one opportunit... | free |
 | `search_forward_opportunities` | contact?, cursor?, entity_dfx_id?, evidence?, limit?, max_economic?, ... | Forward opportunities across DFX: an entity, the event a measured pattern points to (a borrower reaching non-accrual, a pension plan re-upping with a manager, a... | free |
 | `get_forward_signal_ledger` | cursor?, limit?, signal_key?, status?, vertical? | The ledger behind every forward claim: for each pattern, its definition, population, test period, base rate, rate among entities showing it, lift with its inter... | free |
 | `search_cmbs_resolutions` | cursor?, limit?, min_loss_usd?, property_type?, resolution?, since?, ... | Every conduit CMBS loan whose servicer reported a foreclosure, REO or deed in lieu workout (SEC ABS-EE), with how it ended: resolved or still pending, the SEC l... | free |
@@ -189,6 +218,35 @@ not have to guess and does not have to be told:
 | `search_bdc_language_change` | changed_only?, filed_from?, limit?, section?, term | For a term (software, tariffs, AI, healthcare, energy, consumer, office, crypto or any word), every active BDC whose latest 10-K or 10-Q names it, compared sent... | free |
 | `rank_sponsor_capital` | deal_company?, deal_sponsor?, ebitda_max_usd?, ebitda_min_usd?, group?, limit?, ... | The capital parties named on announced independent sponsor transactions, aggregated | free |
 | `get_sponsor_portfolio` | dfx_id?, limit?, name?, status? | Every portfolio holding DFX has for one private equity or independent sponsor firm (current and exited): company, state, listed sector, fund, platform or add-on... | free |
+| `rank_service_providers` | active_since?, cursor?, family?, limit?, min_deals?, query?, ... | Service providers on announced independent sponsor transactions, ranked over the whole graph: law firms (family legal), investment banks and M&A advisers (inves... | free |
+| `get_service_provider` | dfx_id?, name? | A law firm, bank, accounting or diligence firm as the independent sponsor graph sees it: deal counts and role mix, the sponsors it has served most (with deal co... | free |
+| `search_service_provider_sponsors` | cursor?, family?, limit?, min_deals?, provider?, sponsor? | Provider and sponsor pairs from announced independent sponsor transactions | free |
+| `search_borrower_sponsors` | borrower?, current_only?, cursor?, group?, limit?, non_accrual_since?, ... | The borrower to sponsor chain: a BDC borrower, linked through a graded identity bridge to its company record, then to the private equity firms that invested (fu... | free |
+| `search_credit_stress` | bdc_dfx_id?, event_types?, group?, limit?, period?, since?, ... | Credit stress on the BDC tape, counted over every event: NON_ACCRUAL_PLACED and RETURNED_TO_ACCRUAL (from each BDC's schedule of investments footnotes), PIK_ADD... | free |
+| `who_should_provider_call` | limit?, provider?, role_family?, state?, trigger? | The independent sponsor call list (rule isi-pcall-1, XV1 2026-10-02): one row per role family, trigger and sponsor over census-verified sponsor deals | free |
+| `search_isi_opportunities` | limit?, opportunity_type?, persona?, since?, state?, status? | ISI opportunities in the shared opportunity contract (rule isi-opp-1): deal_provider_gap (counsel, bank or accountant not on record for a recent sponsor deal), ... | free |
+| `find_vc_investors` | active_only?, amount_usd?, city?, geography?, limit?, sector?, ... | Venture firms for a company raising a round, with HARD constraints (geography, sector, stage, amount_usd, active_only) kept apart from RANKING signals (observed... | free |
+| `search_vc_coinvestors` | dfx_id?, firm?, limit?, since? | The firms that invest most often beside a named venture firm, from the rounds both were named on: shared portfolio companies, shared rounds, the last and first ... | free |
+| `search_vc_new_funds` | all_vehicles?, city?, emerging_only?, lifecycle_state?, limit?, max_fund_number?, ... | Venture vehicles launched since a date (first Form D sale or first Form ADV appearance), or with an open Form D offering (raising_now), one row per manager: fun... | free |
+| `search_vc_emerging_managers` | city?, launched_since?, limit?, new_adviser_since?, sector?, state? | Venture managers with an emerging-manager score of 0.5 or more (few funds, recent first vintage, small reported assets), with the score, sector evidence, fund c... | free |
+| `search_vc_lp_commitments` | emerging_only?, group_by?, limit?, lp?, max_fund_number?, organization_dfx_id?, ... | Disclosed LP commitments to venture funds from the LPs' own public reports (public pensions, endowments): LP, fund, manager, amount, date, fund number | free |
+| `search_vc_financings` | city?, debt_only?, include_out_of_scope?, kind?, limit?, order_by?, ... | Companies on the venture graph that raised since a date, each financing labelled an ANNOUNCED ROUND (press: round type, stage, amount where disclosed) or an SEC... | free |
+| `search_vc_next_funds` | limit?, max_sequence?, min_sequence?, sector?, since?, within_days? | Fund N+1: a known venture manager's next numbered fund (Fund III after Fund II), dated by its first Form D, with the previous fund, the years between them and t... | free |
+| `search_vc_service_opportunities` | limit?, min_amount_usd?, new_only?, provider_type?, since?, trigger_family?, ... | Filed or announced triggers on the venture graph mapped to the service providers they create work for (admin, audit, law, placement, banking, lending, insurance... | free |
+| `search_vc_exits` | dated_only?, investor_dfx_id?, kinds?, limit?, since?, within_days? | Acquisitions, IPOs and listings of venture-backed companies, with the investor that reported it and the date's basis: occurred (a dated source) or observed (see... | free |
+| `search_vc_repeat_founders` | city?, geography?, include_out_of_scope?, limit?, prior_venture_backed_only?, sector?, ... | People named as an executive officer on the Form D filings of two or more operating companies, listed by the NEW company with its first Form D date, the person,... | free |
+| `search_vc_raise_candidates` | city?, geography?, limit?, max_months_since_financing?, min_months_since_financing?, sector?, ... | Venture-backed companies that are CANDIDATES BY RULE to raise again: last dated financing 12 to 36 months ago and none since, no exit on record, still listed on... | free |
+| `search_vc_provider_calls` | city?, geography?, limit?, min_size_usd?, role?, since?, ... | The call list for a fund administrator, auditor, custodian or placement agent: venture funds with no provider of that role on record (new fund Form D), next num... | free |
+| `search_vc_opportunities` | city?, family?, geography?, limit?, persona?, provider_gap?, ... | The venture opportunity object: dated signals (fund formation, fund lifecycle, company capital, people movement, relationship change) each with why now, what ha... | free |
+| `get_re_debt_exposure` | distress?, group?, limit?, min_balance?, name?, property_type?, ... | CMBS debt grouped by who carries it (latest reading per loan on the SEC ABS-EE tape): group=sponsor (the prospectus annex's sponsor or carve-out guarantor, by n... | free |
+| `search_re_lps_by_manager` | limit?, manager?, min_funds? | Allocator x manager pairs from published LP commitments: distinct funds, total committed, first and latest commitment, re-up, the latest funds with their source | free |
+| `get_re_org_chain` | limit?, name | By the firm's name family: its real estate fund managers, vehicles by lifecycle, published holdings with basis and confidence, fund loans and lender groups, CMB... | free |
+| `get_re_property_chain` | limit?, owner_ids?, property?, property_dfx_id? | A building's recorded NYC mortgages, satisfactions and assignments (parties as filed), the sponsor resolved behind an owner of record when owner_ids are given, ... | free |
+| `watch_create` | baseline?, conditions?, include_failing?, include_historical?, include_unmeasured?, maturity_within_months?, ... | Save a private credit investigation for this account: a research question and/or borrowers, a sponsor's borrowers or a lender's book, and the changes to watch (... | account key |
+| `watch_list` | nothing | This account's watches with status, latest checkpoint, reads used and cost | account key |
+| `watch_changes` | checkpoint?, include_historical?, watch_id | Material changes since a checkpoint: each with its filing, filing date, a check against the lender's own rows, NEW_EVENT or NEWLY_OBSERVED_HISTORICAL, a materia... | account key |
+| `watch_reevaluate` | checkpoint?, watch_id | Re-tests the conclusions recorded at a checkpoint (maturity, mark, lenders, performing) against what changed since, and diffs a saved investigation's claims aga... | account key |
+| `watch_cancel` | watch_id | Cancels a watch: no further deliveries, the quota slot is freed, earlier deliveries stay readable | account key |
 
 **Start with `what_can_dfx_answer`** if you do not know what to ask for. It says no
 clearly when the answer is no, and it records the ask, so questions DFX cannot answer
@@ -200,11 +258,11 @@ shape what gets built next.
 
 The same connection answers across three more DFX graphs, with one id scheme (`dfx:fo:`, `dfx:isi:`, `dfx:vc:`, and the real estate ids above), one response contract, and cross-graph identity by shared CRD, CIK or EIN only. A same-name entity on another graph is returned as a candidate, never merged.
 
-**Family offices.** 2,559 offices on the graph (693 candidates, 156 confirmed multi-family, 333 probable single-family, 139 outsourced), 4,238 foundations, 748 offices with 13F positions, 394 with observed direct investments. A candidate is a name, never a class; AUM, RAUM and 13F value are three numbers and are never substituted for one another.
+**Family offices.** 2,572 offices on the graph (667 candidates, 161 confirmed multi-family, 338 probable single-family, 140 outsourced), 4,238 foundations, 748 offices with 13F positions, 411 with observed direct investments. A candidate is a name, never a class; AUM, RAUM and 13F value are three numbers and are never substituted for one another.
 
-**Independent sponsors.** 4,167 sponsors, 10,660 capital providers, 97,287 private companies with Department of Labor plan-filing history of which 17,064 carry a transition signal, 317,710 computed company-to-sponsor matches with reasons and blockers, 2,397 announced transactions. A plan-filing signal is one year lagged.
+**Independent sponsors.** 4,206 sponsors, 10,773 capital providers, 97,309 private companies with Department of Labor plan-filing history of which 17,081 carry a transition signal, 317,710 computed company-to-sponsor matches with reasons and blockers, 2,476 announced transactions. A plan-filing signal is one year lagged.
 
-**Venture capital.** None firms (None with a fund raising in the last 18 months), 76,936 funds with every fund amount kept apart (54,574 with Form D sold), 113,590 people, 47,455 companies and 30,805 rounds. Stated sectors are populated on None firms today, so a sector filter on firms answers NOT_COVERED rather than an empty list; a round is never a check.
+**Venture capital.** None firms (None with a fund raising in the last 18 months), 78,157 funds with every fund amount kept apart (55,343 with Form D sold), 362,124 people, 155,551 companies and 163,533 rounds. Stated sectors are populated on None firms today, so a sector filter on firms answers NOT_COVERED rather than an empty list; a round is never a check.
 
 **Across all of them:** `search_entities`, `get_entity` (everything on one id: card, relationships, events, evidence, cross-graph links), `search_people`, `search_relationships`, `relationship_path` (how X connects to Y, every hop an evidenced edge), `search_events`, `verify` (SUPPORTED, PARTIALLY_SUPPORTED, CONTRADICTED or UNKNOWN, with the observations), and the economic tools `find_capital_for_opportunity`, `find_opportunities_for_capital`, `explain_match` (reasons and blockers, never a bare score), `why_now` and `who_should_care`.
 
@@ -218,15 +276,15 @@ misread this server.
 
 | Object | What it is | Resolvable |
 |---|---|---|
-| `parcel` | Massachusetts. The municipal assessor and registry layer, carrying assessed value, land use and recorded sales. | 292,039 |
-| `property` | National. Federal programme multifamily: HUD, LIHTC and FHA. | 100,277 |
+| `parcel` | Massachusetts. The municipal assessor and registry layer, carrying assessed value, land use and recorded sales. | 2,473,150 |
+| `property` | National. Federal programme multifamily: HUD, LIHTC and FHA. | 108,359 |
 | `organization` | Owners, managers, lenders and servicers. | not counted separately |
 
 An address may return one, the other, or both.
 
 ### Recorded sales
 
-the District of Columbia, Massachusetts and New York: 95,562 instruments over 118,733 property links.
+the District of Columbia, Massachusetts, New York and Wisconsin: 95,616 instruments over 118,821 property links.
 
 | Tape | Geography | Grain | Buyer | Seller | Repeat sales |
 |---|---|---|---|---|---|
@@ -251,37 +309,45 @@ the District of Columbia, Massachusetts and New York: 95,562 instruments over 11
 
 ### Event coverage, measured
 
-133,404 publishable events across 19 types, written by 20 sources on a published allowlist of 16.
+179,298 publishable events across 25 types, written by 30 sources on a published allowlist of 29.
 
 | Event type | States | Published |
 |---|---|---|
-| `PROPERTY_SOLD` | 3 | 47,479 |
+| `PROPERTY_SOLD` | 4 | 49,391 |
 | `TAX_LIEN_LISTED` | 1 | 29,368 |
-| `PERMIT_ISSUED` | 3 | 13,847 |
+| `PERMIT_ISSUED` | 3 | 20,988 |
+| `DEED_RECORDED` | 1 | 15,170 |
+| `OWNERSHIP_CHANGED` | 1 | 15,061 |
 | `COMPLIANCE_PERIOD_ENDING` | 56 | 11,956 |
 | `SUBSIDY_CONTRACT_EXPIRING` | 54 | 4,721 |
-| `LEASE_EXPIRING` | 56 | 4,153 |
+| `LEASE_EXPIRING` | 56 | 4,206 |
 | `FORECLOSURE_FILED` | 1 | 4,054 |
+| `CERTIFICATE_OF_OCCUPANCY` | 3 | 3,855 |
 | `PORTFOLIO_EXPANDED` | 53 | 3,528 |
-| `LOAN_MATURITY_SCHEDULED` | 52 | 3,281 |
-| `CERTIFICATE_OF_OCCUPANCY` | 2 | 3,273 |
+| `VACANT_FORECLOSURE_REGISTERED` | 0 | 3,500 |
+| `LOAN_MATURITY_SCHEDULED` | 52 | 3,298 |
 | `PORTFOLIO_CONTRACTED` | 54 | 3,181 |
-| `DISTRESS_FLAG_RAISED` | 26 | 1,430 |
-| `DEMOLITION_FILED` | 2 | 1,347 |
-| `USE_CONVERSION_PERMITTED` | 1 | 923 |
-| `VACANT_FORECLOSURE_REGISTERED` | 0 | 711 |
+| `DISTRESS_FLAG_RAISED` | 26 | 3,043 |
+| `DEMOLITION_FILED` | 3 | 2,457 |
+| `USE_CONVERSION_PERMITTED` | 1 | 926 |
+| `ZONING_EVENT` | 1 | 276 |
+| `LOAN_MATURED` | 25 | 142 |
 | `FORECLOSURE_EVENT` | 21 | 123 |
+| `LOAN_MODIFIED` | 5 | 16 |
+| `LOAN_STATUS_CHANGED` | 0 | 14 |
 | `PERMIT_STATUS_CHANGED` | 0 | 13 |
-| `LOAN_MODIFIED` | 5 | 12 |
+| `LOAN_ASSIGNED` | 0 | 7 |
 | `BANKRUPTCY_EVENT` | 4 | 4 |
 
-`USE_CONVERSION_PERMITTED` are Massachusetts only. `TAX_LIEN_LISTED` are New York only.
-`FORECLOSURE_FILED` are Pennsylvania only. `COMPLIANCE_PERIOD_ENDING`, `LEASE_EXPIRING`,
-`LOAN_MATURITY_SCHEDULED`, `PORTFOLIO_CONTRACTED`, `PORTFOLIO_EXPANDED`,
-`SUBSIDY_CONTRACT_EXPIRING` are national. Multi-state, with the number of states each
-reaches: `DISTRESS_FLAG_RAISED` (26), `FORECLOSURE_EVENT` (21), `LOAN_MODIFIED` (5),
-`BANKRUPTCY_EVENT` (4), `PERMIT_ISSUED` (3), `PROPERTY_SOLD` (3),
-`CERTIFICATE_OF_OCCUPANCY` (2), `DEMOLITION_FILED` (2). `PERMIT_STATUS_CHANGED`,
+`ZONING_EVENT` are the District of Columbia only. `USE_CONVERSION_PERMITTED` are
+Massachusetts only. `DEED_RECORDED`, `OWNERSHIP_CHANGED`, `TAX_LIEN_LISTED` are New York
+only. `FORECLOSURE_FILED` are Pennsylvania only. `COMPLIANCE_PERIOD_ENDING`,
+`LEASE_EXPIRING`, `LOAN_MATURITY_SCHEDULED`, `PORTFOLIO_CONTRACTED`,
+`PORTFOLIO_EXPANDED`, `SUBSIDY_CONTRACT_EXPIRING` are national. Multi-state, with the
+number of states each reaches: `DISTRESS_FLAG_RAISED` (26), `LOAN_MATURED` (25),
+`FORECLOSURE_EVENT` (21), `LOAN_MODIFIED` (5), `BANKRUPTCY_EVENT` (4), `PROPERTY_SOLD`
+(4), `CERTIFICATE_OF_OCCUPANCY` (3), `DEMOLITION_FILED` (3), `PERMIT_ISSUED` (3).
+`LOAN_ASSIGNED`, `LOAN_STATUS_CHANGED`, `PERMIT_STATUS_CHANGED`,
 `VACANT_FORECLOSURE_REGISTERED` carries rows that resolve to no state at all, so a state
 filter cannot reach it.
 
@@ -289,7 +355,7 @@ filter cannot reach it.
 
 ## The loan tape: `debt_maturity_schedule`
 
-Free, like everything else on this server. For one US state and one forward window, up
+Free with no key. For one US state and one forward window, up
 to 200 loans per call, one row per loan, ordered by maturity date:
 
 - `maturity_date` and `maturity_basis`
@@ -299,8 +365,8 @@ to 200 loans per call, one row per loan, ordered by maturity date:
 - the secured property: DFX id, street address, city, state, postal code, unit count, property type
 - the `source_key` for that row
 
-**Why the dates can be trusted.** 19,821 loans carry a maturity date and **19,821 of
-19,821 carry `maturity_basis = 'confirmed'`.** Not one is estimated, inferred from a
+**Why the dates can be trusted.** 23,870 loans carry a maturity date and **23,870 of
+23,870 carry `maturity_basis = 'confirmed'`.** Not one is estimated, inferred from a
 term length, or carried forward from a stale reading. Every date was filed with the SEC
 by a loan servicer or recorded by HUD, and then resolved to a specific building.
 
@@ -309,40 +375,41 @@ tape returns the **loan**: the principal, the lender, the instrument, deduplicat
 row per loan, up to 200 rows instead of 50, with the population stated so you can tell a
 complete answer from a truncated one. The two populations are different sizes on purpose
 and both numbers are true: an event has to be promoted to a single place, a loan only has
-to be filed, so the 19,821 loans on the tape are reached here while
-3,281 maturity events are reachable through the event search.
+to be filed, so the 23,870 loans on the tape are reached here while
+3,298 maturity events are reachable through the event search.
 
-**How the loans spread.** Of the 19,821 loans, 1,765 mature inside
-the default 548-day window, and they are not evenly spread. Measured 2026-09-30:
+**How the loans spread.** Of the 23,870 loans, 1,990 mature inside
+the default 548-day window, and they are not evenly spread. Measured 2026-10-22:
 
 | State | Loans maturing in the next 548 days |
 |---|---|
-| CA | 328 |
-| NY | 196 |
-| TX | 119 |
-| FL | 99 |
-| OH | 66 |
+| CA | 355 |
+| NY | 211 |
+| TX | 125 |
+| FL | 102 |
+| OH | 68 |
+| NJ | 62 |
 | GA | 60 |
-| MI | 56 |
-| PA | 55 |
-| IL | 54 |
-| NJ | 50 |
-| VA | 40 |
-| NV | 39 |
-| IN | 35 |
-| WA | 33 |
-| NC | 32 |
-| AZ | 28 |
-| CO | 28 |
+| MI | 59 |
+| PA | 56 |
+| IL | 52 |
+| VA | 44 |
+| NV | 42 |
+| IN | 40 |
+| WA | 38 |
+| AZ | 36 |
+| NC | 35 |
+| CO | 31 |
 | LA | 24 |
-| MD | 21 |
-| SC | 21 |
-| MO | 20 |
+| MD | 23 |
+| MO | 23 |
+| SC | 23 |
+| AL | 22 |
 
-27 further states hold between 1 and 18 loans in that window; Montana and Wyoming hold
+26 further states hold between 1 and 18 loans in that window; Montana and Wyoming hold
 1. Widen `within_days` to reach further out; each call returns up to 200 loans.
 
-145 of those 1,765 carry no single state: a loan secured by several
+255 of those 1,990 carry no single state: a loan secured by several
 buildings has no property anchor, so a state filter cannot reach it. Those are reached
 through `get_property_record`.
 
@@ -396,14 +463,19 @@ them:
 
 ## Connect it
 
-Any MCP client that speaks Streamable HTTP. No credentials.
+Any MCP client that speaks Streamable HTTP. No credentials for anonymous reads. The core
+profile is first; add the full profile too when you want the real estate tools by name.
 
 ```json
 {
   "mcpServers": {
-    "dfx-real-estate": {
+    "dfx": {
       "type": "http",
-      "url": "https://exchange-production-9123.up.railway.app/mcp"
+      "url": "https://exchange-production-9123.up.railway.app/mcp/core?c=gh-repo"
+    },
+    "dfx-full": {
+      "type": "http",
+      "url": "https://exchange-production-9123.up.railway.app/mcp?c=gh-repo"
     }
   }
 }
@@ -412,9 +484,12 @@ Any MCP client that speaks Streamable HTTP. No credentials.
 Claude Code:
 
 ```bash
-claude mcp add --transport http dfx-real-estate \
-  https://exchange-production-9123.up.railway.app/mcp
+claude mcp add --transport http dfx 'https://exchange-production-9123.up.railway.app/mcp/core?c=gh-repo'
+claude mcp add --transport http dfx-full 'https://exchange-production-9123.up.railway.app/mcp?c=gh-repo'
 ```
+
+A member whose client cannot send a header (a Claude custom connector, ChatGPT developer
+mode) adds `https://exchange-production-9123.up.railway.app/mcp/core/member` instead and signs in with OAuth 2.1.
 
 Both the current protocol revision and the older `initialize` handshake are served,
 because most deployed clients still send the latter.
@@ -482,16 +557,16 @@ Returns `matched: 8` with each bank's CRE book against equity and assets, noncur
 {"tool": "search_property_events", "arguments": {"event_type": "LOAN_MATURITY_SCHEDULED", "state": "TX", "within_days": 365, "limit": 50}}
 ```
 
-Returns 73 events (page with `next_cursor`), each with the building's `dfx_id`. Then, for any row, `get_property_record` with that id returns the loan itself free: current principal, interest rate, original principal, maturity and basis. `debt_maturity_schedule` is the same population as one deduplicated statewide list with the lender name and a completeness figure.
+Returns 77 events (page with `next_cursor`), each with the building's `dfx_id`. Then, for any row, `get_property_record` with that id returns the loan itself free: current principal, interest rate, original principal, maturity and basis. `debt_maturity_schedule` is the same population as one deduplicated statewide list with the lender name and a completeness figure.
 
 ### One page per question, with the measured coverage on it
 
-- [Which commercial real-estate loans mature in a given state and window?](https://dfxintel.com/ai/real-estate-mcp/cre-loan-maturities): 3,281 LOAN_MATURITY_SCHEDULED, 52 states and territories.
+- [Which commercial real-estate loans mature in a given state and window?](https://dfxintel.com/ai/real-estate-mcp/cre-loan-maturities): 3,298 LOAN_MATURITY_SCHEDULED, 52 states and territories.
 - [Which LIHTC properties are reaching the end of a compliance period?](https://dfxintel.com/ai/real-estate-mcp/lihtc-year-15-data): 11,956 COMPLIANCE_PERIOD_ENDING, 56 states and territories.
 - [Which HUD-subsidised properties have contracts approaching expiry?](https://dfxintel.com/ai/real-estate-mcp/hud-subsidy-expiry-data): 4,721 SUBSIDY_CONTRACT_EXPIRING, 54 states and territories.
-- [Where is commercial real estate in distress, foreclosure or workout?](https://dfxintel.com/ai/real-estate-mcp/distressed-cre-data): 1,430 DISTRESS_FLAG_RAISED, 123 FORECLOSURE_EVENT, 12 LOAN_MODIFIED, 26 states.
-- [What did this property sell for, and who owns it?](https://dfxintel.com/ai/real-estate-mcp/property-sales-and-ownership-data): 47,479 PROPERTY_SOLD, 3 states.
-- [Which commercial leases are approaching expiry, and who occupies a building?](https://dfxintel.com/ai/real-estate-mcp/commercial-lease-expiry-data): 4,153 LEASE_EXPIRING, 56 states and territories.
+- [Where is commercial real estate in distress, foreclosure or workout?](https://dfxintel.com/ai/real-estate-mcp/distressed-cre-data): 3,043 DISTRESS_FLAG_RAISED, 123 FORECLOSURE_EVENT, 16 LOAN_MODIFIED, 26 states.
+- [What did this property sell for, and who owns it?](https://dfxintel.com/ai/real-estate-mcp/property-sales-and-ownership-data): 49,391 PROPERTY_SOLD, 4 states.
+- [Which commercial leases are approaching expiry, and who occupies a building?](https://dfxintel.com/ai/real-estate-mcp/commercial-lease-expiry-data): 4,206 LEASE_EXPIRING, 56 states and territories.
 
 ## Questions it is not good at, and will say so
 
@@ -512,13 +587,13 @@ Returns 73 events (page with `next_cursor`), each with the building's `dfx_id`. 
 
 ### What is behind the rows
 
-16 registered feeds pass the rights filter and serve this endpoint, in 5 families:
+29 registered feeds pass the rights filter and serve this endpoint, in 5 families:
 
-- **County and municipal records** (9): The property layer: assessment, recorded instruments, permits, code enforcement and tax status.
+- **County and municipal records** (20): The property layer: assessment, recorded instruments, permits, code enforcement and tax status.
 - **Federal program and statistical data** (4): Federal programme registers and statistical series: who is funded, insured, assisted or measured.
+- **Public records** (3): Public records that do not sit in one of the families above.
 - **Federal regulator filings** (1): What firms, funds and plans are required to tell a federal regulator, on the regulator's own schedule.
 - **Securitised debt reporting** (1): Loan-level and servicer reporting on debt that has been securitised, month by month.
-- **Public records** (1): Public records that do not sit in one of the families above.
 
 Every returned row names its own source, the date it was effective and the date DFX read it. Which individual feeds sit inside a family is not published.
 

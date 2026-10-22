@@ -3,7 +3,7 @@
   "mcpServers": {
     "dfx-real-estate": {
       "type": "http",
-      "url": "https://exchange-production-9123.up.railway.app/mcp"
+      "url": "https://exchange-production-9123.up.railway.app/mcp?c=gh-repo"
     },
     "dfx-real-estate-stdio": {
       "command": "python3",

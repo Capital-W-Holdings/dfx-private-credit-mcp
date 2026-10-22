@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # DFX Real Estate MCP: everything below is free and needs no key.
 set -euo pipefail
-DFX=https://exchange-production-9123.up.railway.app/mcp
+DFX='https://exchange-production-9123.up.railway.app/mcp?c=gh-repo'
 
 call () {   # call <tool> <json-arguments>
   curl -s "$DFX" -H 'Content-Type: application/json' \

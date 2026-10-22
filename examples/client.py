@@ -8,7 +8,7 @@ import json
 import sys
 import urllib.request
 
-DFX = "https://exchange-production-9123.up.railway.app/mcp"
+DFX = "https://exchange-production-9123.up.railway.app/mcp?c=gh-repo"
 
 
 def call(tool, arguments):
