@@ -8,14 +8,18 @@ file.
 https://exchange-production-9123.up.railway.app/mcp?c=cline-repo
 ```
 
-Transport is Streamable HTTP. Every tool is free, keyless, read-only and unauthenticated;
-`tools/list` is the count. Nothing here can spend money.
+Transport is Streamable HTTP. Every read tool is free, keyless, read-only and
+unauthenticated; only the `watch_*` tools, which save an account's own research watches,
+need an account key. `tools/list` is the count. Nothing here can spend money without a key.
 
-One connection serves four domains: US real estate (properties, parcels, loans, owners,
-lenders, banks), family offices, independent sponsors and their capital providers, and
-venture capital, with cross-domain identity, relationships, events, matching and
-verification. Ids are `dfx:fo:`, `dfx:isi:`, `dfx:vc:` plus the real estate graph's own
-ids, and they are stable across every tool.
+For a private credit question (which lenders or BDCs hold a company's loans, maturities,
+sponsor financing), the shortest path is the core profile, which leads with `research`:
+`https://exchange-production-9123.up.railway.app/mcp/core?c=cline-repo`.
+
+One connection serves private credit and BDC lenders, private equity, venture capital,
+family offices, RIAs, independent sponsors, allocators, real estate funds and US real
+estate debt and property records, with cross-domain identity, relationships, events,
+matching and verification. Ids are stable across every tool.
 
 ## Verify before you configure anything
 
