@@ -1,0 +1,11 @@
+page 1: OK | rows total: 38 | pages: 8
+page 2: OK, rows on page 2
+page 3: OK, rows on page 3
+
+read 3 page(s), 5 named lender(s):
+  Blackstone Private Credit Fund
+  Blackstone Secured Lending Fund
+  ARES CAPITAL CORP
+  Goldman Sachs Private Credit Corp.
+  HPS Corporate Lending Fund
+stopped at the cap; 29 rows remain behind the continuation

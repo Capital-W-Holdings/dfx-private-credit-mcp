@@ -1,0 +1,1 @@
+DFX_API_KEY is not set. Create a key at https://dfxintel.com/data-factory/account, export it, and run again. (Anonymous use needs no key: see 01_research_anonymous.py.)

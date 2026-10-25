@@ -32,7 +32,7 @@ Example call on the core profile:
 ```
 
 > Every number on this page is measured against production, not typed. Last measured
-> **2026-10-22**. Call `dfx_coverage` for the same grid at the moment you read it.
+> **2026-10-25**. Call `dfx_coverage` for the same grid at the moment you read it.
 
 ---
 
@@ -43,7 +43,7 @@ The other graphs (family offices, independent sponsors, venture capital) follow 
 The real estate domain answers dated questions about two things: **United States commercial and
 federal-programme real estate debt**, where loan maturities are published across
 52 state codes, compliance expiries across 56 and subsidy expiries across
-54, and **property records**, where 2,473,150 New York, Ohio, Washington, Massachusetts and Illinois parcels carry
+54, and **property records**, where 2,479,346 New York, Ohio, Washington, Massachusetts and Illinois parcels carry
 ownership and assessed value and 95,616 recorded sale instruments cover the District of Columbia, Massachusetts, New York and Wisconsin.
 Call it when an agent needs to know who owns a specific building, what it last sold
 for, or which loans and subsidies come due in a given state and time window, with the
@@ -113,7 +113,7 @@ not have to guess and does not have to be told:
 
 | Tool | Takes | Returns | Price |
 |---|---|---|---|
-| `research` | as_of?, continue?, depth?, detail?, entity?, question?, ... | One private-markets question in one call: resolved entities, a direct answer built only from cited claims, facts, relationships, dated events, coverage limits a... | free |
+| `research` | as_of?, continue?, depth?, detail?, entity?, question?, ... | One private markets question in one call: BDC and private credit lenders, borrowers, loans, maturities and non-accrual, sponsors, advisers, teams, pension commi... | free |
 | `resolve_address` | address, city?, state? | canonical DFX ids with the match basis and any ambiguity | free |
 | `resolve_organization` | name | entity ids for owners, managers, lenders, servicers | free |
 | `get_occupancy` | a property or company id, or a company name with an address | who is observed to occupy a building, or where a company operates, with the evidence tier | free |
@@ -259,11 +259,11 @@ shape what gets built next.
 
 The same connection answers across three more DFX graphs, with one id scheme (`dfx:fo:`, `dfx:isi:`, `dfx:vc:`, and the real estate ids above), one response contract, and cross-graph identity by shared CRD, CIK or EIN only. A same-name entity on another graph is returned as a candidate, never merged.
 
-**Family offices.** 2,573 offices on the graph (667 candidates, 161 confirmed multi-family, 339 probable single-family, 140 outsourced), 4,238 foundations, 748 offices with 13F positions, 411 with observed direct investments. A candidate is a name, never a class; AUM, RAUM and 13F value are three numbers and are never substituted for one another.
+**Family offices.** 2,575 offices on the graph (667 candidates, 161 confirmed multi-family, 341 probable single-family, 140 outsourced), 4,238 foundations, 748 offices with 13F positions, 424 with observed direct investments. A candidate is a name, never a class; AUM, RAUM and 13F value are three numbers and are never substituted for one another.
 
-**Independent sponsors.** 4,206 sponsors, 10,773 capital providers, 97,309 private companies with Department of Labor plan-filing history of which 17,081 carry a transition signal, 317,710 computed company-to-sponsor matches with reasons and blockers, 2,476 announced transactions. A plan-filing signal is one year lagged.
+**Independent sponsors.** 4,206 sponsors, 10,773 capital providers, 97,310 private companies with Department of Labor plan-filing history of which 17,081 carry a transition signal, 317,710 computed company-to-sponsor matches with reasons and blockers, 2,476 announced transactions. A plan-filing signal is one year lagged.
 
-**Venture capital.** 78,157 funds with every fund amount kept apart (55,343 with Form D sold), 362,647 people, 156,203 companies and 163,534 rounds. A round is never a check.
+**Venture capital.** 78,298 funds with every fund amount kept apart (55,486 with Form D sold), 363,076 people, 156,426 companies and 163,661 rounds. A round is never a check.
 
 **Across all of them:** `search_entities`, `get_entity` (everything on one id: card, relationships, events, evidence, cross-graph links), `search_people`, `search_relationships`, `relationship_path` (how X connects to Y, every hop an evidenced edge), `search_events`, `verify` (SUPPORTED, PARTIALLY_SUPPORTED, CONTRADICTED or UNKNOWN, with the observations), and the economic tools `find_capital_for_opportunity`, `find_opportunities_for_capital`, `explain_match` (reasons and blockers, never a bare score), `why_now` and `who_should_care`.
 
@@ -277,7 +277,7 @@ misread this server.
 
 | Object | What it is | Resolvable |
 |---|---|---|
-| `parcel` | Massachusetts. The municipal assessor and registry layer, carrying assessed value, land use and recorded sales. | 2,473,150 |
+| `parcel` | Massachusetts. The municipal assessor and registry layer, carrying assessed value, land use and recorded sales. | 2,479,346 |
 | `property` | National. Federal programme multifamily: HUD, LIHTC and FHA. | 108,359 |
 | `organization` | Owners, managers, lenders and servicers. | not counted separately |
 
@@ -380,7 +380,7 @@ to be filed, so the 23,870 loans on the tape are reached here while
 3,298 maturity events are reachable through the event search.
 
 **How the loans spread.** Of the 23,870 loans, 1,990 mature inside
-the default 548-day window, and they are not evenly spread. Measured 2026-10-22:
+the default 548-day window, and they are not evenly spread. Measured 2026-10-25:
 
 | State | Loans maturing in the next 548 days |
 |---|---|
@@ -494,6 +494,24 @@ mode) adds `https://exchange-production-9123.up.railway.app/mcp/core/member` ins
 
 Both the current protocol revision and the older `initialize` handshake are served,
 because most deployed clients still send the latter.
+
+### From code: the dfx-intel SDKs
+
+Python and TypeScript clients for `research`, `verify` and `resolve_name` on the core
+profile, with no runtime dependencies. Anonymous by default; a member key is read from
+`DFX_API_KEY`.
+
+```bash
+pip install dfx-intel
+npm install dfx-intel
+```
+
+Runnable examples, each next to the real output of its last run against production, are in
+[`examples/sdk/`](examples/sdk/): anonymous research, printing the citation behind every
+claim, error handling and retries, pagination, member access with a key from the
+environment, and a short integration tutorial. Choosing between anonymous access, OAuth
+sign-in and an account key, what each client supports, and troubleshooting:
+[`docs/CONNECT.md`](docs/CONNECT.md).
 
 ### If your client only speaks stdio
 

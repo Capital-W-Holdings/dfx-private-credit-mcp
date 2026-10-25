@@ -1,0 +1,31 @@
+OK | At 2026-06-30, 21 BDCs held positions in Hyland Software, Inc on their own schedules of investments; the largest: Blue Owl Technology Finance Corp. ($142.9M of debt at fair value over 2 tranches; principal $147.5M), Blue Owl Credit Income Corp. ($139.2M of debt at fair value over 2 tranches; principal $143.6M), ARES CAPITAL CORP ($108.6M of debt at fair value), Goldman Sachs Private Credit Corp. ($92.6M of debt at fair value over 2 tranches; principal $93.1M), and 17 more on the next page (continue with page.continuation). 
+
+[VERIFIED_FACT] LENDER_TO: Blue Owl Technology Finance Corp. -> Hyland Software, Inc
+    source: https://www.sec.gov/Archives/edgar/data/1747777/000174777726000028/ortf-20260630.htm (document)
+[DERIVED] LENDER_TO_AMOUNT_USD: Blue Owl Technology Finance Corp. -> Hyland Software, Inc
+    fair value $142.9M, principal $147.5M, as of 2026-06-30
+    tranches: first lien term loan $143.1M due 2030-09-01; first lien revolver $-215.0K
+    source: https://www.sec.gov/Archives/edgar/data/1747777/000174777726000028/ortf-20260630.htm (document)
+[VERIFIED_FACT] LENDER_TO: Blue Owl Credit Income Corp. -> Hyland Software, Inc
+    source: https://www.sec.gov/Archives/edgar/data/1812554/000181255426000047/orcic-20260630.htm (document)
+[VERIFIED_FACT] LENDER_TO_AMOUNT_USD: Blue Owl Credit Income Corp. -> Hyland Software, Inc
+    fair value $139.2M, principal $143.6M, as of 2026-06-30
+    tranches: first lien term loan $139.2M due 2030-09-01; first lien revolver
+    source: https://www.sec.gov/Archives/edgar/data/1812554/000181255426000047/orcic-20260630.htm (document)
+[VERIFIED_FACT] LENDER_TO: ARES CAPITAL CORP -> Hyland Software, Inc
+    source: https://www.sec.gov/Archives/edgar/data/1287750/000162828026050307/arcc-20260630.htm (document)
+[VERIFIED_FACT] LENDER_TO_AMOUNT_USD: ARES CAPITAL CORP -> Hyland Software, Inc
+    fair value $108.6M, principal $108.6M, as of 2026-06-30
+    tranches: first lien term loan $108.6M due 2030-09-01; position
+    source: https://www.sec.gov/Archives/edgar/data/1287750/000162828026050307/arcc-20260630.htm (document)
+[VERIFIED_FACT] LENDER_TO: Goldman Sachs Private Credit Corp. -> Hyland Software, Inc
+    source: https://www.sec.gov/Archives/edgar/data/1920145/000119312526340582/ck0001920145-20260630.htm (document)
+[DERIVED] LENDER_TO_AMOUNT_USD: Goldman Sachs Private Credit Corp. -> Hyland Software, Inc
+    fair value $92.6M, principal $93.1M, as of 2026-06-30
+    tranches: first lien term loan $92.6M due 2030-09-19; first lien term loan $-23.0K due 2029-09-19
+    source: https://www.sec.gov/Archives/edgar/data/1920145/000119312526340582/ck0001920145-20260630.htm (document)
+
+citation check: UNVERIFIED | cited rows 4 of 4
+do not conclude: A lender absent from these rows may still lend to the borrower: banks, CLOs and private funds file no schedule of investments.
+do not conclude: Facility fair value here is the sum of the BDC pieces on the schedules, not the facility's size.
+do not conclude: A sponsor LISTED on a portfolio page with no date, or FORMER, is not proof of current ownership.

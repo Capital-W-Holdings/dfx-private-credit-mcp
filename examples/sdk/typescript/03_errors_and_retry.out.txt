@@ -1,0 +1,6 @@
+NAV per share: OK (OK), 4 claims
+  NOT_COVERED: net asset value per share: DFX reads the schedule of investments, not the balance sheet; NAV per share is not on this tape
+member door, no key: HTTP_ERROR: sign in with your DFX account to use this connection
+  transport failure (attempt 1): TransportError
+  transport failure (attempt 2): TransportError
+timeout: gave up after retries
