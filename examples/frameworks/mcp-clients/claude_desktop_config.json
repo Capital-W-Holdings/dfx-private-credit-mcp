@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "dfx": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://exchange-production-9123.up.railway.app/mcp/core?c=ex-claude-desktop"]
+    }
+  }
+}

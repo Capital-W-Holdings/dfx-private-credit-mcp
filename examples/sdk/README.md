@@ -21,6 +21,10 @@ so copy the file next to your `node_modules` or install the package beside it).
 | `04_paginate.py` | `04_paginate.mjs` | Walking `continuation` with a page cap, keeping lender rows only |
 | `05_member_api_key.py` | `05_member_api_key.mjs` | Member access with `DFX_API_KEY` from the environment; stops loudly when it is missing. The recorded output is that stop, because these runs use no key |
 | `06_tutorial_lender_brief.py` | `06_tutorial_lender_brief.mjs` | The tutorial below: a cited lender brief as one function an agent can call as a tool |
+| `07_what_changed.py` | `07_what_changed.mjs` | The second session: what changed for a borrower since the prior quarter end, one `call_tool` / `callTool` of `search_private_credit_changes` on `/mcp`, each change dated and sourced, the rest counted |
+
+Building on an agent framework? [`../frameworks/`](../frameworks/) has runnable Claude Agent SDK, OpenAI Agents SDK,
+LangGraph and Vercel AI SDK examples and copy-paste MCP configs for Cursor, VS Code, Windsurf and Claude Desktop.
 
 `DFX_EXAMPLE_UA_SUFFIX` in the scripts is only for DFX's own test runs, so they can be excluded from usage counts.
 Leave it unset.
@@ -47,6 +51,21 @@ The goal: your agent is asked "who lends to Hyland Software?" and should answer 
    a Vercel AI SDK adapter at `dfx-intel/ai-sdk`.
 
 `06_tutorial_lender_brief.py` and `.mjs` are the whole integration; their `.out.txt` is the brief they produced.
+
+## Coming back after the next filings
+
+BDCs file a quarter's 10-Q about 40 to 45 days after the quarter ends, so a borrower's lenders, marks, spreads and
+maturities move on the tape a few times a year. `07_what_changed` is the call to make when they do: the borrower's
+dfx id from a research answer, `since` set to the quarter end you last read, and back come the dated changes
+(lenders joining or leaving, marks, spread and maturity moves, PIK, non-accrual), each with the filing behind it.
+
+- The tool is listed on the full profile, `/mcp`, so the example sets `mcp_path="/mcp"` (`mcpPath: "/mcp"`); the SDK
+  defaults to `/mcp/core`, which does not list it.
+- Schedule it yourself, for example once a week in the weeks after each quarter's filing deadline. DFX keeps no list
+  of your borrowers, runs nothing on your behalf and sends nothing.
+- An effective date is the quarter end where the change is visible. A lender exit is dated at the last quarter the
+  lender held the piece, so it appears one schedule later than its date suggests.
+- An empty list means no change was read since then, not that nothing happened off the BDC schedules.
 
 ## Reading the numbers
 

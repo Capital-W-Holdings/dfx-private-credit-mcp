@@ -1,0 +1,12 @@
+model: scripted stand in (no OPENAI_API_KEY), one dfx_research call
+
+agent asked for: [('dfx_research', 'Which BDCs lend to Auctane?')]
+tool dfx_research returned state OK | 8 claims | 10 source documents | more pages: True
+    https://www.sec.gov/Archives/edgar/data/1794776/000119312526333791/psbd-20260630.htm
+    https://www.sec.gov/Archives/edgar/data/1794776/000119312526333791/
+    https://www.sec.gov/Archives/edgar/data/1803498/000180349826000048/bcred-20260630.htm
+    coverage limit: {'kind': 'COVERAGE', 'about': 'lenders outside BDC filings', 'why': 'banks, CLOs and private funds that file no schedule of investments are invisible on this tape; principal is the sum of BDC pieces, a lower bound'}
+
+final answer:
+[OK] At 2026-06-30, 29 BDCs held positions in Auctane Inc on their own schedules of investments; the largest: Blackstone Private Credit Fund ($832.0M of debt at fair value; principal $844.7M), Blackstone Secured Lending Fund ($277.3M of debt at fair value; principal $281.6M), ARES CAPITAL CORP ($241.6M of debt at fair value; principal $245.3M), Goldman Sachs Private Credit Corp. ($217.7M of debt at fair value; principal $221.0M), and 25 more on the next page (continue with page.continuation).
+Sources: https://www.sec.gov/Archives/edgar/data/1794776/000119312526333791/psbd-20260630.htm; https://www.sec.gov/Archives/edgar/data/1794776/000119312526333791/; https://www.sec.gov/Archives/edgar/data/1803498/000180349826000048/bcred-20260630.htm

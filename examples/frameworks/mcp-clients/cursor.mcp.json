@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "dfx": {
+      "url": "https://exchange-production-9123.up.railway.app/mcp/core?c=ex-cursor"
+    }
+  }
+}

@@ -59,7 +59,7 @@
             "usd_year": 1990,
             "self_serve": true,
             "agent_keys": 1,
-            "oauth_connections": 1
+            "signed_in_connections_count_as_agent_keys": true
           },
           {
             "name": "Advantage",
@@ -68,7 +68,7 @@
             "self_serve": false,
             "founding_pilot": true,
             "agent_keys": 5,
-            "oauth_connections": 2
+            "signed_in_connections_count_as_agent_keys": true
           }
         ],
         "plans_url": "https://dfxintel.com/data-factory/plans"

@@ -1,0 +1,10 @@
+mcp_servers: {"dfx": {"type": "http", "url": "https://exchange-production-9123.up.railway.app/mcp/core?c=ex-claude-agent"}}
+allowed_tools: ['mcp__dfx__research', 'mcp__dfx__verify', 'mcp__dfx__resolve_name']
+
+tools/list: 19 tools, first ['research', 'what_can_dfx_answer', 'resolve_name']; every allowed tool listed: True
+research state: OK | answer_state: OK
+answer: At 2026-06-30, 21 BDCs held positions in Hyland Software, Inc on their own schedules of investments; the largest: Blue Owl Technology Finance Corp. ($142.9M of debt at fair value over 2 tranches; principal $147.5M), Blue Owl Credit Income Corp. ($139.2M of debt at fair value over 2 tranches; principal $143.6M), ARES CAPITAL CORP ($108.6M of debt at fair value), Goldman Sachs Private Credit Corp. ($92.6M of debt at fair value over 2 tranches; principal $93.1M), and 17 more on the next page (continue with page.continuation).
+claims: 8 | source documents: 4
+    https://www.sec.gov/Archives/edgar/data/1287750/000162828026050307/arcc-20260630.htm
+    https://www.sec.gov/Archives/edgar/data/1747777/000174777726000028/ortf-20260630.htm
+    https://www.sec.gov/Archives/edgar/data/1812554/000181255426000047/orcic-20260630.htm

@@ -1,0 +1,8 @@
+no AI_GATEWAY_API_KEY: calling the dfx_research tool's execute, as generateText would
+tools: [ 'dfx_research' ]
+state: OK | answer_state: OK
+answer: At 2026-06-30, 8 BDCs held positions in Medallia, Inc on their own schedules of investments; the largest: Blackstone Private Credit Fund ($553.6M of debt at fair value over 2 tranches; principal $1.12B), Blackstone Secured Lending Fund ($195.6M of debt at fair value over 2 tranches; principal $395.2M), FS KKR Capital Corp ($117.4M of debt at fair value; principal $234.1M), HPS Corporate Lending Fund ($40.7M of debt at fair value; principal $82.8M), and 4 more on the next page (continue with page.continuation).
+claims: 8 | source documents: 9 | more pages: true
+    https://www.sec.gov/Archives/edgar/data/1422183/000162828026053783/fsk-20260630.htm
+    https://www.sec.gov/Archives/edgar/data/1422183/000162828026053783/
+    https://www.sec.gov/Archives/edgar/data/1803498/000180349826000048/bcred-20260630.htm

@@ -1,0 +1,8 @@
+config: cursor.mcp.json | url: https://exchange-production-9123.up.railway.app/mcp/core?c=ex-cursor
+tools/list: 19 tools, first ['research', 'what_can_dfx_answer', 'resolve_name', 'search_entities']
+research state: OK | answer_state: OK
+answer: At 2026-06-30, 14 BDCs held positions in Kona Buyer, LLC on their own schedules of investments; the largest: Blackstone Private Credit Fund ($343.2M of debt at fair value over 7 tranches; principal $345.5M), HPS Corporate Lending Fund ($118.3M of debt at fair value over 7 tranches; principal $122.2M), Jefferies Credit Partners BDC Inc. ($24.3M of debt at fair value over 10 tranches; principal $24.7M), GOLUB CAPITAL BDC, Inc. ($20.5M of debt at fair value over 7 tranches; principal $20.7M), and 10 more on the next page (continue with page.continuation).
+claims: 8 | source documents: 4
+    https://www.sec.gov/Archives/edgar/data/1476765/000147676526000048/gbdc-20260630.htm
+    https://www.sec.gov/Archives/edgar/data/1803498/000180349826000048/bcred-20260630.htm
+    https://www.sec.gov/Archives/edgar/data/1838126/000162828026056772/hps-20260630.htm

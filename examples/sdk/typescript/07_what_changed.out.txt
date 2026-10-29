@@ -1,0 +1,26 @@
+changes on dfx:pc:fa47c51b-e087-6631-d0cd-ae3158ba0421 effective on or after 2026-03-31
+state: OK | on this page: 25 | named here: 5 | in all: 33
+
+2026-06-30  SPREAD_DECREASED  Golub Capital Private Income Fund I | 0.05 -> 0.0475 rate
+    Golub Capital Private Income Fund I: spread decreased in Hyland Software, Inc (5.00% to 4.75%)
+    source: https://www.sec.gov/Archives/edgar/data/2082559/000208255926000086/gpifi-20260630.htm
+
+2026-06-30  SPREAD_DECREASED  Golub Capital Private Income Fund S | 0.05 -> 0.0475 rate
+    Golub Capital Private Income Fund S: spread decreased in Hyland Software, Inc (5.00% to 4.75%)
+    source: https://www.sec.gov/Archives/edgar/data/2082557/000208255726000059/gpifs-20260630.htm
+
+2026-06-30  SPREAD_DECREASED  APS BDC, LLC | 0.06 -> 0.0475 rate
+    APS BDC, LLC: spread decreased in Hyland Software, Inc (6.00% to 4.75%)
+    source: https://www.sec.gov/Archives/edgar/data/2083477/000208347726000008/aps-20260630.htm
+
+2026-06-30  SPREAD_DECREASED  Blue Owl Credit Income Corp. | 0.05 -> 0.0475 rate
+    Blue Owl Credit Income Corp.: spread decreased in Hyland Software, Inc (5.00% to 4.75%)
+    source: https://www.sec.gov/Archives/edgar/data/1812554/000181255426000047/orcic-20260630.htm
+
+2026-06-30  SPREAD_DECREASED  Blue Owl Credit Income Corp. | 0.05 -> 0.0475 rate
+    Blue Owl Credit Income Corp.: spread decreased in Hyland Software, Inc (5.00% to 4.75%)
+    source: https://www.sec.gov/Archives/edgar/data/1812554/000181255426000047/orcic-20260630.htm
+
+20 more change(s) counted, not named, without a plan: { results: 20 }
+
+An effective date is the quarter end where the change is visible. A lender exit is dated at the last quarter the lender held the piece. BDC schedules are not every lender: banks, CLOs and private funds file none.
