@@ -13,7 +13,7 @@
 **Full profile:** `https://exchange-production-9123.up.railway.app/mcp?c=gh-repo`
 **Transport:** Streamable HTTP
 **Auth:** none for anonymous reads; OAuth 2.1 sign-in on dfxintel.com or a `dfx_live_` account key for members
-**Registry:** `io.github.Capital-W-Holdings/us-property-parcel-real-estate-debt`
+**Registry:** `io.github.Capital-W-Holdings/dfx-private-credit-mcp`
 
 The core profile leads with `research`: one question, answered in one call, with the reads it composes.
 The full profile lists `research` first too, then every read tool. Members sign in at the member URL (it is never tagged,
@@ -32,7 +32,7 @@ Example call on the core profile:
 ```
 
 > Every number on this page is measured against production, not typed. Last measured
-> **2026-10-29**. Call `dfx_coverage` for the same grid at the moment you read it.
+> **2026-10-30**. Call `dfx_coverage` for the same grid at the moment you read it.
 
 ---
 
@@ -264,7 +264,7 @@ The same connection answers across three more DFX graphs, with one id scheme (`d
 
 **Independent sponsors.** 4,210 sponsors, 10,827 capital providers, 97,310 private companies with Department of Labor plan-filing history of which 17,081 carry a transition signal, 317,710 computed company-to-sponsor matches with reasons and blockers, 2,476 announced transactions. A plan-filing signal is one year lagged.
 
-**Venture capital.** 78,377 funds with every fund amount kept apart (55,560 with Form D sold), 363,267 people, 156,522 companies and 163,786 rounds. A round is never a check.
+**Venture capital.** 78,416 funds with every fund amount kept apart (55,599 with Form D sold), 363,331 people, 156,538 companies and 163,811 rounds. A round is never a check.
 
 **Across all of them:** `search_entities`, `get_entity` (everything on one id: card, relationships, events, evidence, cross-graph links), `search_people`, `search_relationships`, `relationship_path` (how X connects to Y, every hop an evidenced edge), `search_events`, `verify` (SUPPORTED, PARTIALLY_SUPPORTED, CONTRADICTED or UNKNOWN, with the observations), and the economic tools `find_capital_for_opportunity`, `find_opportunities_for_capital`, `explain_match` (reasons and blockers, never a bare score), `why_now` and `who_should_care`.
 
@@ -279,7 +279,7 @@ misread this server.
 | Object | What it is | Resolvable |
 |---|---|---|
 | `parcel` | Massachusetts. The municipal assessor and registry layer, carrying assessed value, land use and recorded sales. | 2,479,346 |
-| `property` | National. Federal programme multifamily: HUD, LIHTC and FHA. | 108,359 |
+| `property` | National. Federal programme multifamily: HUD, LIHTC and FHA. | 114,886 |
 | `organization` | Owners, managers, lenders and servicers. | not counted separately |
 
 An address may return one, the other, or both.
@@ -311,7 +311,7 @@ the District of Columbia, Massachusetts, New York and Wisconsin: 95,616 instrume
 
 ### Event coverage, measured
 
-183,102 publishable events across 27 types, written by 30 sources on a published allowlist of 29.
+183,758 publishable events across 27 types, written by 30 sources on a published allowlist of 29.
 
 | Event type | States | Published |
 |---|---|---|
@@ -329,16 +329,16 @@ the District of Columbia, Massachusetts, New York and Wisconsin: 95,616 instrume
 | `PORTFOLIO_EXPANDED` | 53 | 3,528 |
 | `LOAN_MATURITY_SCHEDULED` | 52 | 3,298 |
 | `PORTFOLIO_CONTRACTED` | 54 | 3,181 |
-| `DISTRESS_FLAG_RAISED` | 26 | 3,083 |
+| `DISTRESS_FLAG_RAISED` | 26 | 3,169 |
 | `DEMOLITION_FILED` | 3 | 2,467 |
 | `USE_CONVERSION_PERMITTED` | 1 | 929 |
+| `LOAN_STATUS_CHANGED` | 0 | 557 |
 | `ZONING_EVENT` | 1 | 317 |
 | `LOAN_MATURED` | 25 | 142 |
 | `FORECLOSURE_EVENT` | 21 | 123 |
-| `LOAN_MODIFIED` | 5 | 17 |
-| `LOAN_STATUS_CHANGED` | 0 | 16 |
+| `LOAN_MODIFIED` | 5 | 31 |
+| `LOAN_ASSIGNED` | 0 | 22 |
 | `PERMIT_STATUS_CHANGED` | 0 | 13 |
-| `LOAN_ASSIGNED` | 0 | 7 |
 | `BANKRUPTCY_EVENT` | 4 | 4 |
 | `DISTRESS_STATUS_CHANGED` | 1 | 1 |
 | `SPECIAL_SERVICING_ENTERED` | 1 | 1 |
@@ -370,8 +370,8 @@ to 200 loans per call, one row per loan, ordered by maturity date:
 - the secured property: DFX id, street address, city, state, postal code, unit count, property type
 - the `source_key` for that row
 
-**Why the dates can be trusted.** 23,870 loans carry a maturity date and **23,870 of
-23,870 carry `maturity_basis = 'confirmed'`.** Not one is estimated, inferred from a
+**Why the dates can be trusted.** 23,825 loans carry a maturity date and **23,825 of
+23,825 carry `maturity_basis = 'confirmed'`.** Not one is estimated, inferred from a
 term length, or carried forward from a stale reading. Every date was filed with the SEC
 by a loan servicer or recorded by HUD, and then resolved to a specific building.
 
@@ -380,11 +380,11 @@ tape returns the **loan**: the principal, the lender, the instrument, deduplicat
 row per loan, up to 200 rows instead of 50, with the population stated so you can tell a
 complete answer from a truncated one. The two populations are different sizes on purpose
 and both numbers are true: an event has to be promoted to a single place, a loan only has
-to be filed, so the 23,870 loans on the tape are reached here while
+to be filed, so the 23,825 loans on the tape are reached here while
 3,298 maturity events are reachable through the event search.
 
-**How the loans spread.** Of the 23,870 loans, 1,990 mature inside
-the default 548-day window, and they are not evenly spread. Measured 2026-10-29:
+**How the loans spread.** Of the 23,825 loans, 1,990 mature inside
+the default 548-day window, and they are not evenly spread. Measured 2026-10-30:
 
 | State | Loans maturing in the next 548 days |
 |---|---|
@@ -550,7 +550,7 @@ real question and printing the cited answer, with the output of its last run bes
 [`examples/quickstart.ipynb`](examples/quickstart.ipynb) does the same in a notebook:
 raw JSON-RPC over httpx, then the OpenAI Agents SDK.
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Capital-W-Holdings/us-property-parcel-real-estate-debt/blob/main/examples/quickstart.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Capital-W-Holdings/dfx-private-credit-mcp/blob/main/examples/quickstart.ipynb)
 
 ### If your client only speaks stdio
 
@@ -564,7 +564,7 @@ and writes the answer back.
   "mcpServers": {
     "dfx-real-estate": {
       "command": "python3",
-      "args": ["/path/to/us-property-parcel-real-estate-debt/bridge/dfx_mcp_stdio.py"]
+      "args": ["/path/to/dfx-private-credit-mcp/bridge/dfx_mcp_stdio.py"]
     }
   }
 }
@@ -622,7 +622,7 @@ Returns 77 events (page with `next_cursor`), each with the building's `dfx_id`. 
 - [Which commercial real-estate loans mature in a given state and window?](https://dfxintel.com/ai/real-estate-mcp/cre-loan-maturities): 3,298 LOAN_MATURITY_SCHEDULED, 52 states and territories.
 - [Which LIHTC properties are reaching the end of a compliance period?](https://dfxintel.com/ai/real-estate-mcp/lihtc-year-15-data): 11,956 COMPLIANCE_PERIOD_ENDING, 56 states and territories.
 - [Which HUD-subsidised properties have contracts approaching expiry?](https://dfxintel.com/ai/real-estate-mcp/hud-subsidy-expiry-data): 4,721 SUBSIDY_CONTRACT_EXPIRING, 54 states and territories.
-- [Where is commercial real estate in distress, foreclosure or workout?](https://dfxintel.com/ai/real-estate-mcp/distressed-cre-data): 3,083 DISTRESS_FLAG_RAISED, 123 FORECLOSURE_EVENT, 17 LOAN_MODIFIED, 26 states.
+- [Where is commercial real estate in distress, foreclosure or workout?](https://dfxintel.com/ai/real-estate-mcp/distressed-cre-data): 3,169 DISTRESS_FLAG_RAISED, 123 FORECLOSURE_EVENT, 31 LOAN_MODIFIED, 26 states.
 - [What did this property sell for, and who owns it?](https://dfxintel.com/ai/real-estate-mcp/property-sales-and-ownership-data): 49,471 PROPERTY_SOLD, 4 states.
 - [Which commercial leases are approaching expiry, and who occupies a building?](https://dfxintel.com/ai/real-estate-mcp/commercial-lease-expiry-data): 4,206 LEASE_EXPIRING, 56 states and territories.
 

@@ -65,7 +65,7 @@ is the whole adapter for those: one file, standard library only, no key, no stat
   "mcpServers": {
     "dfx-real-estate": {
       "command": "python3",
-      "args": ["/absolute/path/to/us-property-parcel-real-estate-debt/bridge/dfx_mcp_stdio.py"]
+      "args": ["/absolute/path/to/dfx-private-credit-mcp/bridge/dfx_mcp_stdio.py"]
     }
   }
 }

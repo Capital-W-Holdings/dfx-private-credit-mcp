@@ -8,7 +8,7 @@
     "dfx-real-estate-stdio": {
       "command": "python3",
       "args": [
-        "/path/to/us-property-parcel-real-estate-debt/bridge/dfx_mcp_stdio.py"
+        "/path/to/dfx-private-credit-mcp/bridge/dfx_mcp_stdio.py"
       ]
     }
   }
